@@ -1,8 +1,8 @@
 ﻿// Определить сколько чисел больше 0 введено с клавиатуры
 
-string[] findNumbers(string input)
-{
+// string[] findNumbers(string input)
+// {
 
-}
+// }
 
 //12, 4,  5, 5,-2, -10, 2, 123
