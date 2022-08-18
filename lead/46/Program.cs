@@ -9,14 +9,19 @@
 
 double[] strToDoubleArray(string input)
 {
-    input = input.Replace(" ", string.Empty);
-    input = input.Replace("(", string.Empty);
+    input = input.Replace(" ", ",");
+    input = input.Replace("(", ",");
     input = input.Replace(")", ",");
     string[] array = input.Split(",");
     double[] numArray = new double[8];
-    for (int i = 0; i < 8; i++)
+    int j = 0;
+    for (int i = 0; i < array.Length; i++)
     {
-        numArray[i] = Convert.ToDouble(array[i]);
+        if (array[i] != "")
+        {
+            numArray[j] = Convert.ToDouble(array[i]);
+            j++;
+        }
     }
     return numArray;
 }
@@ -24,21 +29,21 @@ double[] strToDoubleArray(string input)
 
 double[] scale(double[] input, double mult)
 {
-     double[] result = new double[input.Length];
-     result[0] = input[0];
-     result[1] = input[1];
-     for (int i = 2; i < input.Length; i++)
-     {
-        if(i % 2 == 0)
+    double[] result = new double[input.Length];
+    result[0] = input[0];
+    result[1] = input[1];
+    for (int i = 2; i < input.Length; i++)
+    {
+        if (i % 2 == 0)
         {
             result[i] = (input[i] - result[0]) * mult;
         }
         else
         {
             result[i] = (input[i] - result[1]) * mult;
-        }  
-     }
-     return result;
+        }
+    }
+    return result;
 }
 
 
@@ -47,10 +52,10 @@ string makeOutput(double[] sqaled)
     string output = "(";
     for (int i = 0; i < sqaled.Length; i++)
     {
-        if(i % 2 == 0)
+        if (i % 2 == 0)
         {
             output += Convert.ToString(sqaled[i]);
-            output += ",";
+            output += " , ";
         }
         else
         {
@@ -58,16 +63,16 @@ string makeOutput(double[] sqaled)
             output += ") (";
         }
     }
-    output = output.Remove(output.Length-2);
+    output = output.Remove(output.Length - 2);
 
     return output;
 }
 
 
 System.Console.Write("Введите вершины фигуры в формате (x,y): ");
-double[] numArray = strToDoubleArray(Console.ReadLine());
+double[] input = strToDoubleArray(Console.ReadLine());
 System.Console.Write("Введите коэффициент масштабирования: ");
-double multi = Convert.ToDouble(Console.ReadLine());
+double K = Convert.ToDouble(Console.ReadLine());
 
-System.Console.WriteLine(makeOutput(scale(numArray, multi)));
+System.Console.WriteLine(makeOutput(scale(input, K)));
 
